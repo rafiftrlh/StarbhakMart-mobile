@@ -1,22 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CartItemSamples extends StatelessWidget {
+class CartItemSamples extends StatefulWidget {
   static const TextStyle nmStyle =
       TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black);
 
   static const List<Widget> nmProduk = [
-    Text(
-      "Pizza",
-      style: nmStyle,
-    ),
-    Text(
-      "Ayam Goreng",
-      style: nmStyle,
-    ),
+    Text("Pizza", style: nmStyle),
+    Text("Ayam Goreng", style: nmStyle),
     Text("Beef Lasagna", style: nmStyle),
-    Text("Spagetti", style: nmStyle)
+    Text("Spaghetti", style: nmStyle)
   ];
+
+  @override
+  State<CartItemSamples> createState() => _CartItemSamplesState();
+}
+
+class _CartItemSamplesState extends State<CartItemSamples> {
+  int count1 = 0;
+  int count2 = 0;
+  int count3 = 0;
+  int count4 = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +53,7 @@ class CartItemSamples extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        nmProduk.elementAt(i),
+                        CartItemSamples.nmProduk.elementAt(i),
                         Text(
                           "Rp 20.000",
                           style: TextStyle(
@@ -72,44 +76,72 @@ class CartItemSamples extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            Container(
-                              padding: EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        spreadRadius: 1,
-                                        blurRadius: 10)
-                                  ]),
-                              child: Icon(
-                                CupertinoIcons.minus,
-                                size: 18,
+                            OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                padding: EdgeInsets.all(
+                                    2), // Mengatur padding untuk memperkecil ukuran button
+                                minimumSize: Size(0,
+                                    0), // Menetapkan minimumSize ke nilai 0 untuk meminimalkan ukuran button
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  i == 0 && count1 > 0
+                                      ? count1--
+                                      : i == 1 && count2 > 0
+                                          ? count2--
+                                          : i == 2 && count3 > 0
+                                              ? count3--
+                                              : i == 3 && count4 > 0
+                                                  ? count4--
+                                                  : null;
+                                });
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(4),
+                                child: Icon(
+                                  CupertinoIcons.minus,
+                                  size: 18,
+                                ),
                               ),
                             ),
                             Container(
                               margin: EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
-                                "001",
+                                i == 0
+                                    ? count1.toString()
+                                    : i == 1
+                                        ? count2.toString()
+                                        : i == 2
+                                            ? count3.toString()
+                                            : count4.toString(),
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w500),
                               ),
                             ),
-                            Container(
-                              padding: EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        spreadRadius: 1,
-                                        blurRadius: 10)
-                                  ]),
-                              child: Icon(
-                                CupertinoIcons.plus,
-                                size: 18,
+                            OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                padding: EdgeInsets.all(
+                                    2), // Mengatur padding untuk memperkecil ukuran button
+                                minimumSize: Size(0,
+                                    0), // Menetapkan minimumSize ke nilai 0 untuk meminimalkan ukuran button
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  i == 0
+                                      ? count1++
+                                      : i == 1
+                                          ? count2++
+                                          : i == 2
+                                              ? count3++
+                                              : count4++;
+                                });
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(4),
+                                child: Icon(
+                                  CupertinoIcons.plus,
+                                  size: 18,
+                                ),
                               ),
                             )
                           ],
